@@ -1,19 +1,32 @@
 import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Records from './Pages/Records';
+import Layout from './Pages/Layout';
+import Column from './Pages/Column';
+import Home from './Pages/Home';
+import { PrivateRoute } from './HOC/privateRouter';
 
 function App() {
-  return (
-    <div className="App flex gap-8">
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route element={<Layout />} >
+					<Route path="/"
+						element={
+							<PrivateRoute>
+								<Home />
+							</PrivateRoute>
+						} />
+					<Route path="/record" element={
+						<PrivateRoute>
+							<Records />
+						</PrivateRoute>
+					} />
+					<Route path="/column" element={<Column />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
